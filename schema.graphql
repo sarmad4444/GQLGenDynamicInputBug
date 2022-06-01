@@ -1,0 +1,31 @@
+directive @goModel(
+    model: String
+    models: [String!]
+) on OBJECT | INPUT_OBJECT | SCALAR | ENUM | INTERFACE | UNION
+
+schema {
+    query: Queries
+    mutation: Mutations
+}
+
+type Queries {
+    todos: [Todo!]!
+}
+
+type Mutations {
+    createTodo(input: TodoCreateInput!): Todo!
+    createTodoMany(inputs: [TodoCreateInput!]!): [Todo]!
+}
+
+type Todo {
+    id: ID!
+    text: String!
+    done: Boolean!
+}
+
+input TodoCreateInput @goModel(model: "map[string]interface{}") {
+    "The body text"
+    text: String!
+    "Is it done already?"
+    done: Boolean
+}

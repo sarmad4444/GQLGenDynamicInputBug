@@ -1,0 +1,14 @@
+models:
+  Todo:
+    model: todo.Todo
+  # DynamicTodoInput:
+  #   model: map[string]interface{}
+  ID:
+    model: # override the default id marshaller to use ints
+      - github.com/99designs/gqlgen/graphql.IntID
+      - github.com/99designs/gqlgen/graphql.ID
+exec:
+  filename: graph/generated.go
+resolver:
+  layout: follow-schema
+  dir: graph
